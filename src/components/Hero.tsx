@@ -48,7 +48,7 @@ export default function Hero() {
               transition={{ delay: 0.2 }}
               className="space-y-2"
             >
-              <p className="text-blue-600 dark:text-blue-400 font-medium">Hello, I'm</p>
+              <p className="text-blue-600 dark:text-blue-400 font-medium">Hello, I&apos;m</p>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold">
                 M. Shakir Jamil
               </h1>

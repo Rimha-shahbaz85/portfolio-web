@@ -114,7 +114,7 @@ export default function About() {
           >
             <div className="space-y-4">
               <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                A highly skilled and competent Full Stack Engineer (MERN) with 3+ years of hands-on experience designing, developing, and implementing applications and solutions using a wide range of technologies. I've also mentored a team of 5+ developers.
+                A highly skilled and competent Full Stack Engineer (MERN) with 3+ years of hands-on experience designing, developing, and implementing applications and solutions using a wide range of technologies. I&apos;ve also mentored a team of 5+ developers.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                 I specialize in building scalable web applications using modern technologies and best practices. My expertise includes both frontend and backend development, with a strong focus on user experience and performance optimization.

@@ -95,7 +95,7 @@ export default function Contact() {
             className="space-y-8"
           >
             <div>
-              <h3 className="text-2xl font-semibold mb-4">Let's Connect</h3>
+              <h3 className="text-2xl font-semibold mb-4">Let&apos;s Connect</h3>
               <p className="text-gray-600 dark:text-gray-300 mb-8">
                 I&apos;m always interested in hearing about new opportunities and exciting projects. Feel free to reach out if you&apos;d like to collaborate or just want to say hello!
               </p>
