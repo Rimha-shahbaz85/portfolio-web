@@ -9,8 +9,8 @@
   
   body {
     @apply antialiased;
-  }
-  
+}
+
   /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
@@ -22,8 +22,8 @@
   
   ::-webkit-scrollbar-thumb {
     @apply bg-gray-300 dark:bg-gray-600 rounded-full;
-  }
-  
+}
+
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-gray-400 dark:bg-gray-500;
   }

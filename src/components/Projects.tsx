@@ -3,8 +3,6 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import { ExternalLink, Github } from 'lucide-react';
-import Image from 'next/image';
 
 function useIsMobile(breakpoint = 768) {
   const [isMobile, setIsMobile] = useState(false);
@@ -126,7 +124,6 @@ export default function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [activeCategory, setActiveCategory] = useState('All');
-  const isMobile = useIsMobile();
 
   const filteredProjects = activeCategory === 'All' 
     ? projects 
