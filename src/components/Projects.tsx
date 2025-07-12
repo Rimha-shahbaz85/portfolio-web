@@ -1,8 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
 const projects = [
   {
@@ -110,8 +109,6 @@ const projects = [
 const categories = ['All', 'Full Stack', 'Frontend', 'AI/ML'];
 
 export default function Projects() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [activeCategory, setActiveCategory] = useState('All');
 
   const filteredProjects = activeCategory === 'All' 
@@ -122,9 +119,8 @@ export default function Projects() {
     <section id="projects" className="section-padding bg-gray-50 dark:bg-gray-800/50">
       <div className="container-custom">
         <motion.div
-          ref={ref}
           initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
@@ -137,7 +133,7 @@ export default function Projects() {
               <motion.button
                 key={category}
                 initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 + index * 0.1 }}
                 onClick={() => setActiveCategory(category)}
                 className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
@@ -222,7 +218,7 @@ export default function Projects() {
         {filteredProjects.length === 0 && (
           <motion.div
             initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
+            animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
             className="text-center py-12"
           >
