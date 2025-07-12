@@ -166,92 +166,72 @@ export default function Projects() {
           </div>
         </motion.div>
 
-        <motion.div
-          initial={isMobile ? { opacity: 0, x: -40 } : { opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, x: 0, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          viewport={{ once: true, amount: 0.5 }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
+        
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project, index) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.6 + index * 0.1 }}
-              className="bg-white dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden card-hover group"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 + index * 0.1 }}
+              className="bg-white dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden card-hover group p-6"
             >
               {/* Project Image */}
-              {project.image ? (
-                <Image
+              {project.image && (
+                <img
                   src={project.image}
                   alt={project.title}
                   width={400}
                   height={300}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-48 object-cover mb-4"
                   style={{ borderTopLeftRadius: '0.75rem', borderTopRightRadius: '0.75rem' }}
                 />
-              ) : (
-                <div className="relative h-48 bg-gradient-to-br from-blue-500 to-purple-600 overflow-hidden flex items-center justify-center">
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300"></div>
-                  <div className="absolute inset-0 flex items-center justify-center text-white text-4xl font-bold">
-                    {project.title.charAt(0)}
-                  </div>
-                  <div className="absolute top-4 right-4">
-                    <span className="px-2 py-1 bg-white/20 backdrop-blur-sm text-white text-xs rounded-full">
-                      {project.category}
-                    </span>
-                  </div>
-                </div>
               )}
-
-              {/* Project Content */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
-                  {project.title}
-                </h3>
-                
-                <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
-                  {project.description}
-                </p>
-
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded text-xs font-medium"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Links */}
-                <div className="flex gap-3">
+              {/* Project Title */}
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
+                {project.title}
+              </h3>
+              {/* Project Description */}
+              <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                {project.description}
+              </p>
+              {/* Technologies */}
+              <div className="flex flex-wrap gap-2 mb-4">
+                {project.technologies.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded text-xs font-medium"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+              {/* Links */}
+              <div className="flex gap-3">
+                {project.github && (
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
                   >
-                    <Github size={18} />
                     <span className="text-sm">Code</span>
                   </a>
+                )}
+                {project.live && (
                   <a
                     href={project.live}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
                   >
-                    <ExternalLink size={18} />
                     <span className="text-sm">Live</span>
                   </a>
-                </div>
+                )}
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
         {filteredProjects.length === 0 && (
           <motion.div
