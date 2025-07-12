@@ -2,8 +2,19 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
+
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < breakpoint);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, [breakpoint]);
+  return isMobile;
+}
 
 const contactInfo = [
   {
@@ -37,6 +48,7 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const isMobile = useIsMobile();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,10 +76,10 @@ export default function Contact() {
     <section id="contact" className="section-padding">
       <div className="container-custom">
         <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          initial={isMobile ? { opacity: 0, x: -40 } : { opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, x: 0, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          viewport={{ once: true, amount: 0.5 }}
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">Get In Touch</h2>
@@ -85,7 +97,7 @@ export default function Contact() {
             <div>
               <h3 className="text-2xl font-semibold mb-4">Let's Connect</h3>
               <p className="text-gray-600 dark:text-gray-300 mb-8">
-                I'm always interested in hearing about new opportunities and exciting projects. Feel free to reach out if you'd like to collaborate or just want to say hello!
+                I&apos;m always interested in hearing about new opportunities and exciting projects. Feel free to reach out if you&apos;d like to collaborate or just want to say hello!
               </p>
             </div>
 

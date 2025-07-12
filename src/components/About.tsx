@@ -2,9 +2,20 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { BadgeCheck, Code2, Database, Cloud, GitBranch, Star } from 'lucide-react';
 import React from 'react';
+
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < breakpoint);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, [breakpoint]);
+  return isMobile;
+}
 
 const skillGroups = [
   {
@@ -76,26 +87,17 @@ const softSkills = [
 export default function About() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  const skillCategories = Array.from(new Set(skillGroups.map(group => group.category)));
-
-  const skillIcons: Record<string, any> = {
-    Backend: Code2,
-    Frontend: Code2,
-    Language: Star,
-    Database: Database,
-    Cloud: Cloud,
-    Tools: GitBranch,
-  };
+  const isMobile = useIsMobile();
 
   return (
     <section id="about" className="section-padding bg-gray-50 dark:bg-gray-800/50">
       <div className="container-custom">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          initial={isMobile ? { opacity: 0, x: -40 } : { opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, x: 0, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          viewport={{ once: true, amount: 0.5 }}
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">About Me</h2>

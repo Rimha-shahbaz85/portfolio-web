@@ -2,8 +2,20 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
-import { ExternalLink, Github, ArrowUpRight } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ExternalLink, Github } from 'lucide-react';
+import Image from 'next/image';
+
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < breakpoint);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, [breakpoint]);
+  return isMobile;
+}
 
 const projects = [
   {
@@ -114,6 +126,7 @@ export default function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [activeCategory, setActiveCategory] = useState('All');
+  const isMobile = useIsMobile();
 
   const filteredProjects = activeCategory === 'All' 
     ? projects 
@@ -154,9 +167,10 @@ export default function Projects() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.4 }}
+          initial={isMobile ? { opacity: 0, x: -40 } : { opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, x: 0, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          viewport={{ once: true, amount: 0.5 }}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {filteredProjects.map((project, index) => (
@@ -169,9 +183,11 @@ export default function Projects() {
             >
               {/* Project Image */}
               {project.image ? (
-                <img
+                <Image
                   src={project.image}
                   alt={project.title}
+                  width={400}
+                  height={300}
                   className="w-full h-48 object-cover"
                   style={{ borderTopLeftRadius: '0.75rem', borderTopRightRadius: '0.75rem' }}
                 />

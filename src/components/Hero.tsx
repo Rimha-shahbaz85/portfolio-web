@@ -3,6 +3,18 @@
 import { motion } from 'framer-motion';
 import { Download, ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
+
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < breakpoint);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, [breakpoint]);
+  return isMobile;
+}
 
 export default function Hero() {
   const socialLinks = [
@@ -10,6 +22,8 @@ export default function Hero() {
     { icon: Linkedin, href: 'https://www.linkedin.com/in/shakirjamil9/', label: 'LinkedIn' },
     { icon: Mail, href: 'mailto:mianshakir9@hotmail.com', label: 'Email' },
   ];
+
+  const isMobile = useIsMobile();
 
   return (
     <section id="home" className="section-padding min-h-screen flex items-center justify-center relative overflow-hidden">
@@ -22,9 +36,10 @@ export default function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={isMobile ? { opacity: 0, x: -40 } : { opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true, amount: 0.5 }}
             className="space-y-6"
           >
             <motion.div
@@ -119,7 +134,7 @@ export default function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full opacity-20 blur-xl"></div>
                 <div className="relative w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 rounded-full p-2">
                   <div className="w-full h-full bg-white dark:bg-gray-900 rounded-full overflow-hidden flex items-center justify-center">
-                    <img
+                    <Image
                       src="/profile.jpg"
                       alt="M. Shakir Jamil"
                       className="w-full h-full object-cover"
