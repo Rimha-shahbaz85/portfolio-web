@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
 
@@ -38,7 +37,6 @@ const contactInfo = [
 ];
 
 export default function Contact() {
-  const ref = useRef(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -47,7 +45,6 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const isMobile = useIsMobile();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
